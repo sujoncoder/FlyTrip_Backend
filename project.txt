@@ -1,0 +1,34 @@
+➡️ PROJECT OVERVIEWS & FEATURES EXPLAINATION.
+
+🌋🌋🌋 ERROR TYPE
+
+1. Unhandle rejection error 🔁
+== Any kind of promise related error, that error we are not handle.
+*** Example = Promise.reject(new Error("I forgot to catch this promise."))
+
+
+2. Uncaught rejection error 🔁
+== Any type of local error, that error we are not handle.
+*** Example = throw new Error("I forgot to handle this local error.")
+
+
+
+3. Signal termination sigterm 🔁
+== Hoisting provider maintaince their server, So that they are send a signal each app provider for shuting down.
+
+
+----------------------------------------------------------------------------
+
+➡️ Class based file always should be capital.
+===> ApiError.ts
+
+➡️ Build in javascript Error object have no statusCode. HTTP errors have status codes (like 400, 404, 500), you need to manually attach statusCode using a custom class or by manually setting it.
+===> HTTP-related libraries like Express, (Axios, etc.)
+
+➡️ {RequestHandler} come from express build in type safety. Look like it.
+===> type RequestHandler = (req: Request, res: Response, next: NextFunction) => Promise<void>;
+
+
+
+
+git commit -m "setup a project about tour-management system already done to middleware, user and auth operation"

@@ -39,9 +39,10 @@ export const createUserService = async (payload: Partial<IUser>) => {
 // UPDATE USER SERVICE
 export const updateUserService = async (userId: string, payload: Partial<IUser>, decodedToken: JwtPayload) => {
 
-    const ifUserExist = await User.findById(userId);
+    const isUserExist = await User.findById(userId);
 
-    if (!ifUserExist) {
+
+    if (!isUserExist) {
         throw new ApiError(HTTP_STATUS.NOT_FOUND, "User Not Found")
     };
 

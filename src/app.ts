@@ -1,8 +1,8 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
+import passport from "passport";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
-import passport from "passport";
 
 import "./app/config/passport"
 

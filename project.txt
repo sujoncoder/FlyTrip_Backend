@@ -29,6 +29,37 @@
 ===> type RequestHandler = (req: Request, res: Response, next: NextFunction) => Promise<void>;
 
 
+✅ API-ENDPOINT ✅
+
+⛑️ AUTH ROUTE
+    # /api/v1/user/register         --> Create new user.
+    # /api/v1/user/login            --> Login user.
+    # /api/v1/user/refresh-token    --> Create new access token.
+    # /api/v1/user/refresh-token    --> Logout user.
+    # /api/v1/user/reset-password   --> Reset password.
 
 
-git commit -m "setup a project about tour-management system already done to middleware, user and auth operation"
+🙎 USER ROUTE
+    # /api/v1/user/register         --> Create new user.
+    # /api/v1/user/login            --> Login user.
+    # /api/v1/user/refresh-token    --> Create new access token.
+    # /api/v1/user/refresh-token    --> Logout user.
+    # /api/v1/user/reset-password   --> Reset password.
+
+
+👮 USER ROUTE
+    # /api/v1/user/all-users        --> Get all users (Admin, SuperAdmin).
+    # /api/v1/user/login            --> Login user.
+    # /api/v1/user/refresh-token    --> Create new access token.
+    # /api/v1/user/refresh-token    --> Logout user.
+    # /api/v1/user/reset-password   --> Reset password.
+
+
+
+
+
+
+    ⚠️⚠️⚠️ ⚠️⚠️⚠️ ⚠️⚠️⚠️
+    # /api/v1/user/:id       --> Get all users (Admin, SuperAdmin).
+    ==> More strong kora laghbe. ar aikhane sobkichu update hosse ata k off kora laghbe.
+    

@@ -6,6 +6,7 @@ import { sendResponse } from "../../utils/sendResponse";
 import { HTTP_STATUS } from "../../constants/httpStatus";
 
 import { createUserService, getAllUserService, updateUserService } from "./user.services";
+import { JwtPayload } from "jsonwebtoken";
 
 
 
@@ -25,11 +26,10 @@ export const createUser = catchAsync(async (req: Request, res: Response, next: N
 // UPDATE USER CONTROLLER
 export const updateUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const userId = req.params.id;
-
     const verifiedToken = req.user;
-
     const payload = req.body;
-    const user = await updateUserService(userId, payload, verifiedToken)
+
+    const user = await updateUserService(userId, payload, verifiedToken as JwtPayload);
 
     sendResponse(res, {
         success: true,

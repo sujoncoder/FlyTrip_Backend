@@ -76,7 +76,7 @@ export const getAllTourTypes = catchAsync(async (req: Request, res: Response) =>
 // CREATE TOUR TYPE CONTROLLER
 export const createTourType = catchAsync(async (req: Request, res: Response) => {
     const { name } = req.body;
-    const result = await createTourTypeService(name);
+    const result = await createTourTypeService({ name });
     sendResponse(res, {
         statusCode: 201,
         success: true,

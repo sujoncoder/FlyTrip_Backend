@@ -1,0 +1,23 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Types } from "mongoose";
+
+
+// PAYMENT_STATUS ENUM
+export enum PAYMENT_STATUS {
+    PAID = "PAID",
+    UNPAID = "UNPAID",
+    CANCELLED = "CANCELLED",
+    FAILED = "FAILED",
+    REFUNDED = "REFUNDED"
+};
+
+
+// PAYMENT TYPE
+export interface IPayment {
+    booking: Types.ObjectId;
+    transactionId: string;
+    amount: number;
+    paymentGatewayData?: any;
+    invoice_url?: string;
+    status: PAYMENT_STATUS;
+};

@@ -67,11 +67,12 @@ export const deleteTourService = async (id: string) => {
 
 // CREATE TOUR TYPE SERVICE
 export const createTourTypeService = async (payload: ITourType) => {
-    const existingTourType = await TourType.findOne({ name: payload.name });
+    const { name } = payload;
+    const existingTourType = await TourType.findOne({ name });
 
     if (existingTourType) {
         throw new Error("Tour type already exists.");
-    }
+    };
 
     return await TourType.create({ name });
 };

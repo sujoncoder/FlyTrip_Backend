@@ -27,3 +27,9 @@ export const updateUserZodSchema = z.object({
     isVerified: z.boolean({ error: "isVerified must be true or false" }).optional(),
     address: addressField.optional(),
 });
+
+
+// FORGOT EMAIL ZOD SCHEMA
+export const forgotMailZodSchema = z.object({
+    email: emailField
+});

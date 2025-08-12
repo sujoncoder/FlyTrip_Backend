@@ -6,6 +6,7 @@ import { SECRET } from "./app/config/env";
 import connectDB from "./app/config/database";
 import { seedSuperAdmin } from "./app/utils/seedSuperAdmin";
 import gracefulShutdown, { setServer } from "./app/config/shutdown";
+import { connectRedis } from "./app/config/redis.config";
 
 
 let server: Server;
@@ -14,7 +15,7 @@ let server: Server;
 const startServer = async () => {
     await connectDB();
     server = app.listen(SECRET.PORT, () => {
-        console.log(`➡️  Server is running on http://localhost: ${SECRET.PORT}`)
+        console.log(`☄️  Server is running on http://localhost: ${SECRET.PORT}`)
     });
 
     setServer(server);
@@ -23,6 +24,7 @@ const startServer = async () => {
 
 // CALL SYNCHRONIZING ===> FIRST START SERVER THEN SEEDING SUPER ADMIN
 (async () => {
+    await connectRedis()
     await startServer();
     await seedSuperAdmin();
 })();

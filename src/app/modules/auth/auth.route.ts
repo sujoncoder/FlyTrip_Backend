@@ -4,8 +4,10 @@ import passport from "passport";
 import { Role } from "../user/user.interface";
 import { checkAuth } from "../../middlewares/checkAuth";
 
-import { changePassword, credentialLogin, getNewAccessToken, googleCallbackController, logout, resetPassword, setPassword } from "./auth.controller";
+import { changePassword, credentialLogin, forgotPassword, getNewAccessToken, googleCallbackController, logout, resetPassword, setPassword } from "./auth.controller";
 import { SECRET } from "../../config/env";
+import { validateRequest } from "../../middlewares/validateRequest";
+import { forgotMailZodSchema } from "../user/user.validation";
 
 
 // AUTH ROUTES
@@ -14,8 +16,11 @@ export const authRoutes = Router()
     .post("/refresh-token", getNewAccessToken)
     .post("/logout", logout)
     .post("/change-password", checkAuth(...Object.values(Role)), changePassword)
-    .post("/reset-password", checkAuth(...Object.values(Role)), resetPassword)
     .post("/set-password", checkAuth(...Object.values(Role)), setPassword)
+    .post("/forgot-password", validateRequest(forgotMailZodSchema), forgotPassword)
+    .post("/reset-password", checkAuth(...Object.values(Role)), resetPassword)
+    // Frontend -> forget-password -> email -> user status check -> short expiration token (valid for 10 min) -> email -> Fronted Link http://localhost:5173/reset-password?email=saminisrar1@gmail.com&token=token -> frontend e  query theke user er email and token extract anbo -> new password user theke nibe -> backend er /reset-password api -> authorization = token -> newPassword -> token verify -> password hash -> save user password   
+
 
     // START GOOGLE AUTH
     .get("/google", async (req: Request, res: Response, next: NextFunction) => {

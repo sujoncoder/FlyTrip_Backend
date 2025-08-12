@@ -12,7 +12,7 @@ import { sendResponse } from "../../utils/sendResponse";
 import { HTTP_STATUS } from "../../constants/httpStatus";
 import { createUserTokens } from "../../utils/userTokens";
 
-import { changePasswordService, getNewAccessTokenService, resetPasswordService, setPasswordService } from "./auth.service";
+import { changePasswordService, forgotPasswordService, getNewAccessTokenService, resetPasswordService, setPasswordService } from "./auth.service";
 
 
 
@@ -140,23 +140,6 @@ export const changePassword = catchAsync(async (req: Request, res: Response, nex
 });
 
 
-// RESET PASSWORD CONTROLLER
-export const resetPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const oldPassword = req.body.oldPassword;
-    const newPassword = req.body.newPassword;
-    const decodedToken = req.user;
-
-    await resetPasswordService(oldPassword, newPassword, decodedToken as JwtPayload);
-
-    sendResponse(res, {
-        success: true,
-        statusCode: HTTP_STATUS.OK,
-        message: "Password changed successfully",
-        data: null
-    });
-});
-
-
 // SET PASSWORD CONTROLLER
 export const setPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
@@ -170,9 +153,37 @@ export const setPassword = catchAsync(async (req: Request, res: Response, next: 
         statusCode: HTTP_STATUS.OK,
         message: "Password Changed Successfully",
         data: null,
+    });
+});
+
+
+// FORGOT PASSWORD CONTROLLER
+export const forgotPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const { email } = req.body;
+
+    await forgotPasswordService(email);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: HTTP_STATUS.OK,
+        message: "Email Sent Successfully",
+        data: null,
     })
 })
 
+
+// RESET PASSWORD CONTROLLER
+export const resetPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const decodedToken = req.user;
+    await resetPasswordService(req.body, decodedToken as JwtPayload);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: HTTP_STATUS.OK,
+        message: "Password Changed Successfully",
+        data: null,
+    });
+})
 
 
 // GOOGLE CALL BACK URL CONTROLLER

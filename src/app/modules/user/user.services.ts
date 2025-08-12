@@ -7,6 +7,8 @@ import { HTTP_STATUS } from "../../constants/httpStatus";
 
 import { User } from "./user.model";
 import { IAuthProvider, IUser, Role } from "./user.interface";
+import { QueryBuilder } from "../../utils/QueryBuilder";
+import { userSearchableFields } from "./user.constant";
 
 
 
@@ -33,6 +35,24 @@ export const createUserService = async (payload: Partial<IUser>) => {
     });
 
     return user;
+};
+
+
+// GET SINGLE USER SERVICE
+export const getSingleUserService = async (id: string) => {
+    const user = await User.findById(id).select("-password");
+    return {
+        data: user
+    }
+};
+
+
+// GET MY PROFILE SERVICE
+export const getMeService = async (userId: string) => {
+    const user = await User.findById(userId).select("-password");
+    return {
+        data: user
+    }
 };
 
 
@@ -73,14 +93,23 @@ export const updateUserService = async (userId: string, payload: Partial<IUser>,
 
 
 // GET ALL USERS SERVICE
-export const getAllUserService = async () => {
-    const users = await User.find({});
-    const totalUsers = await User.countDocuments();
+export const getAllUserService = async (query: Record<string, string>) => {
+
+    const queryBuilder = new QueryBuilder(User.find(), query)
+    const usersData = queryBuilder
+        .filter()
+        .search(userSearchableFields)
+        .sort()
+        .fields()
+        .paginate();
+
+    const [data, meta] = await Promise.all([
+        usersData.build(),
+        queryBuilder.getMeta()
+    ])
 
     return {
-        data: users,
-        meta: {
-            total: totalUsers
-        }
-    };
+        data,
+        meta
+    }
 };

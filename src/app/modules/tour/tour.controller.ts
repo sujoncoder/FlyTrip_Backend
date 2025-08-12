@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { catchAsync } from '../../utils/catchAsync';
 import { sendResponse } from '../../utils/sendResponse';
 
+import { ITour } from './tour.interface';
 import { createTourService, createTourTypeService, deleteTourService, deleteTourTypeService, getAllTourService, getAllTourTypeService, updateTourService, updateTourTypeService } from './tour.service';
 
 
@@ -10,7 +11,12 @@ import { createTourService, createTourTypeService, deleteTourService, deleteTour
 
 // CREATE NEW TOUR CONTROLLER
 export const createTour = catchAsync(async (req: Request, res: Response) => {
-    const result = await createTourService(req.body);
+    const payload: ITour = {
+        ...req.body,
+        images: (req.files as Express.Multer.File[]).map(file => file.path)
+    };
+
+    const result = await createTourService(payload);
     sendResponse(res, {
         statusCode: 201,
         success: true,
@@ -37,8 +43,12 @@ export const getAllTours = catchAsync(async (req: Request, res: Response) => {
 
 // UPDATE TOUR CONTROLLER
 export const updateTour = catchAsync(async (req: Request, res: Response) => {
+    const payload: ITour = {
+        ...req.body,
+        images: (req.files as Express.Multer.File[]).map(file => file.path)
+    };
 
-    const result = await updateTourService(req.params.id, req.body);
+    const result = await updateTourService(req.params.id, payload);
     sendResponse(res, {
         statusCode: 200,
         success: true,

@@ -1,6 +1,8 @@
 import { Division } from "./division.model";
 import { IDivision } from "./division.interface";
 
+import { deleteImageFromCLoudinary } from "../../config/cloudinary.config";
+
 
 
 // CREATE DIVISION SERVICE
@@ -44,7 +46,7 @@ export const updateDivisionService = async (id: string, payload: Partial<IDivisi
     const existingDivision = await Division.findById(id);
     if (!existingDivision) {
         throw new Error("Division not found.");
-    };
+    }
 
     const duplicateDivision = await Division.findOne({
         name: payload.name,
@@ -55,7 +57,11 @@ export const updateDivisionService = async (id: string, payload: Partial<IDivisi
         throw new Error("A division with this name already exists.");
     };
 
-    const updatedDivision = await Division.findByIdAndUpdate(id, payload, { new: true, runValidators: true })
+    const updatedDivision = await Division.findByIdAndUpdate(id, payload, { new: true, runValidators: true });
+
+    if (payload.thumbnail && existingDivision.thumbnail) {
+        await deleteImageFromCLoudinary(existingDivision.thumbnail)
+    };
 
     return updatedDivision;
 };

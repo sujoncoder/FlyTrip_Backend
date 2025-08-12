@@ -12,7 +12,7 @@ import { sendResponse } from "../../utils/sendResponse";
 import { HTTP_STATUS } from "../../constants/httpStatus";
 import { createUserTokens } from "../../utils/userTokens";
 
-import { getNewAccessTokenService, resetPasswordService } from "./auth.service";
+import { changePasswordService, getNewAccessTokenService, resetPasswordService, setPasswordService } from "./auth.service";
 
 
 
@@ -122,9 +122,26 @@ export const logout = catchAsync(async (req: Request, res: Response, next: NextF
 });
 
 
+// CHANGE PASSWORD CONTROLLER
+export const changePassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+
+    const oldPassword = req.body.oldPassword;
+    const newPassword = req.body.newPassword;
+    const decodedToken = req.user;
+
+    await changePasswordService(oldPassword, newPassword, decodedToken as JwtPayload);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: HTTP_STATUS.OK,
+        message: "Password changed successfully",
+        data: null
+    });
+});
+
+
 // RESET PASSWORD CONTROLLER
 export const resetPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-
     const oldPassword = req.body.oldPassword;
     const newPassword = req.body.newPassword;
     const decodedToken = req.user;
@@ -138,6 +155,24 @@ export const resetPassword = catchAsync(async (req: Request, res: Response, next
         data: null
     });
 });
+
+
+// SET PASSWORD CONTROLLER
+export const setPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+
+    const decodedToken = req.user as JwtPayload
+    const { password } = req.body;
+
+    await setPasswordService(decodedToken.userId, password);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: HTTP_STATUS.OK,
+        message: "Password Changed Successfully",
+        data: null,
+    })
+})
+
 
 
 // GOOGLE CALL BACK URL CONTROLLER

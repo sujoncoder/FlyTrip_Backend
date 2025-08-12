@@ -1,20 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Tour } from "../tour/tour.model";
 import { User } from "../user/user.model";
 import { ApiError } from "../../errors/ApiError";
+import { Payment } from "../payment/payment.model";
 import { HTTP_STATUS } from "../../constants/httpStatus";
+import { PAYMENT_STATUS } from "../payment/payment.interface";
+import { ISSLCommerz } from "../sslCommerz/sslCommerz.interface";
+import { sslPaymentInit } from "../sslCommerz/sslCommerz.service";
 
 import { Booking } from "./booking.model";
-import { Payment } from "../payment/payment.model";
-import { PAYMENT_STATUS } from "../payment/payment.interface";
-import { Tour } from "../tour/tour.model";
 import { BOOKING_STATUS, IBooking } from "./booking.interface";
-import { sslPaymentInit } from "../sslCommerz/sslCommerz.service";
-import { ISSLCommerz } from "../sslCommerz/sslCommerz.interface";
+import { getTransactionId } from "../../utils/getTransactionId";
 
 
-const getTransactionId = () => {
-    return `tran_${Date.now()}_${Math.floor(Math.random() * 1000)}`
-};
 
 
 // CREATE BOOKING SERVICE
@@ -97,7 +95,7 @@ export const getAllBookingService = async () => {
 
 
 // GET USER BOOKINGS SERVICE
-export const getUserBookingsService = async () => {
+export const getUserBookingService = async () => {
     return
 };
 

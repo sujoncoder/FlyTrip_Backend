@@ -4,7 +4,8 @@ import passport from "passport";
 import { Role } from "../user/user.interface";
 import { checkAuth } from "../../middlewares/checkAuth";
 
-import { credentialLogin, getNewAccessToken, googleCallbackController, logout, resetPassword } from "./auth.controller";
+import { changePassword, credentialLogin, getNewAccessToken, googleCallbackController, logout, resetPassword, setPassword } from "./auth.controller";
+import { SECRET } from "../../config/env";
 
 
 // AUTH ROUTES
@@ -12,7 +13,9 @@ export const authRoutes = Router()
     .post("/login", credentialLogin)
     .post("/refresh-token", getNewAccessToken)
     .post("/logout", logout)
+    .post("/change-password", checkAuth(...Object.values(Role)), changePassword)
     .post("/reset-password", checkAuth(...Object.values(Role)), resetPassword)
+    .post("/set-password", checkAuth(...Object.values(Role)), setPassword)
 
     // START GOOGLE AUTH
     .get("/google", async (req: Request, res: Response, next: NextFunction) => {
@@ -22,4 +25,4 @@ export const authRoutes = Router()
 
     // GOOGLE CALLBACK AUTH
     // api/v1/auth/google/callback?state=/booking
-    .get("/google/callback", passport.authenticate("google", { failureRedirect: "/login" }), googleCallbackController)
+    .get("/google/callback", passport.authenticate("google", { failureRedirect: `${SECRET.FRONTEND_URL}/login?error=There is some issues with your account. Please contact with out support team!` }), googleCallbackController)

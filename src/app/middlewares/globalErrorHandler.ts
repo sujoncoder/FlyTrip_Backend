@@ -9,18 +9,33 @@ import { handlerZodError } from "../helpers/handlerZodError";
 import { TErrorSources } from "../interfaces/error.types";
 import { SECRET } from "../config/env";
 import { ApiError } from "../errors/ApiError";
+import { deleteImageFromCLoudinary } from "../config/cloudinary.config";
 
 
 
 // GLOBAL ERROR HANDLER MIDDLEWARE
-export const globalErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
+export const globalErrorHandler = async (err: any, req: Request, res: Response, next: NextFunction) => {
     if (SECRET.NODE_ENV === "development") {
         console.log(err);
     };
 
+    // CLOUDINARY SINGLE IMAGE DESTROY
+    if (req.file) {
+        await deleteImageFromCLoudinary(req.file.path)
+    };
+
+    // CLOUDINARY MULTIPLE IMAGES DESTROY
+    if (req.files && Array.isArray(req.files) && req.files.length) {
+        const imageUrls = (req.files as Express.Multer.File[]).map(file => file.path)
+
+        await Promise.all(imageUrls.map(url => deleteImageFromCLoudinary(url)))
+    };
+
+
     let errorSources: TErrorSources[] = []
     let statusCode = 500
     let message = "Something Went Wrong!!"
+
 
     if (err.code === 11000) {
         const simplifiedError = handlerDuplicateError(err)

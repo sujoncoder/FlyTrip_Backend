@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
+import { JwtPayload } from "jsonwebtoken";
 
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
-import { createBookingService } from "./booking.service";
-import { JwtPayload } from "jsonwebtoken";
+
+import { createBookingService, getAllBookingService, getSingleBookingService, getUserBookingService, updateBookingStatusService } from "./booking.service";
 
 
 
@@ -25,36 +26,37 @@ export const createBooking = catchAsync(async (req: Request, res: Response) => {
 
 // GET ALL BOOKING CONTROLLER
 export const getAllBooking = catchAsync(async (req: Request, res: Response) => {
-
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const bookings = await getAllBookingService();
     sendResponse(res, {
-        statusCode: 201,
+        statusCode: 200,
         success: true,
-        message: 'Tour type created successfully',
-        data: "",
+        message: "Bookings retrieved successfully",
+        data: {},
     });
 });
 
 
 // GET USER BOOKINGS CONTROLLER
 export const getUserBookings = catchAsync(async (req: Request, res: Response) => {
-
+    const bookings = await getUserBookingService();
     sendResponse(res, {
-        statusCode: 201,
+        statusCode: 200,
         success: true,
-        message: 'Tour type created successfully',
-        data: "",
+        message: "Bookings retrieved successfully",
+        data: bookings,
     });
 });
 
 
 // GET SINGLE BOOKINGS CONTROLLER
 export const getSingleBooking = catchAsync(async (req: Request, res: Response) => {
-
+    const booking = await getSingleBookingService();
     sendResponse(res, {
-        statusCode: 201,
+        statusCode: 200,
         success: true,
-        message: 'Tour type created successfully',
-        data: "",
+        message: "Booking retrieved successfully",
+        data: booking,
     });
 });
 
@@ -62,11 +64,11 @@ export const getSingleBooking = catchAsync(async (req: Request, res: Response) =
 // UPDATE BOOKING STATUS CONTROLLER
 export const updateBookingStatus = catchAsync(async (req: Request, res: Response) => {
 
-
+    const updated = await updateBookingStatusService();
     sendResponse(res, {
         statusCode: 201,
         success: true,
-        message: 'Bokking created successfully',
-        data: "",
+        message: "Booking Status Updated Successfully",
+        data: updated,
     });
 });

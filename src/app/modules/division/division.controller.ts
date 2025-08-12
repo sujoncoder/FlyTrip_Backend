@@ -4,12 +4,15 @@ import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
 
 import { createDivisionService, deleteDivisionService, getAllDivisionService, getSingleDivisionService, updateDivisionService } from "./division.service";
+import { IDivision } from "./division.interface";
 
 
 
 // CREATE DIVISION
 export const createDivision = catchAsync(async (req: Request, res: Response) => {
-    const result = await createDivisionService(req.body);
+
+    const payload = { ...req.body, thumbnail: req.file?.path }
+    const result = await createDivisionService(payload);
     sendResponse(res, {
         statusCode: 201,
         success: true,
@@ -48,8 +51,12 @@ export const getSingleDivision = catchAsync(async (req: Request, res: Response) 
 // UPDATE DIVISION CONTROLLER
 export const updateDivision = catchAsync(async (req: Request, res: Response) => {
     const id = req.params.id;
+    const payload: IDivision = {
+        ...req.body,
+        thumbnail: req.file?.path
+    }
 
-    const result = await updateDivisionService(id, req.body);
+    const result = await updateDivisionService(id, payload);
     sendResponse(res, {
         statusCode: 200,
         success: true,

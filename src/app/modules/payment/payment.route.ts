@@ -1,11 +1,15 @@
 import { Router } from "express";
 
-import { cancelPayment, failPayment, initPayment, successPayment } from "./payment.controller";
+import { cancelPayment, failPayment, getInvoiceDownloadUrl, initPayment, successPayment, validatePayment } from "./payment.controller";
+import { checkAuth } from "../../middlewares/checkAuth";
+import { Role } from "../user/user.interface";
 
 
 // PAYMENT ROUTES
 export const paymentRoutes = Router()
-    .post("/init-payment/:bookingId", initPayment)
     .post("/success", successPayment)
     .post("/fail", failPayment)
     .post("/cancel", cancelPayment)
+    .post("/validate-payment", validatePayment)
+    .post("/init-payment/:bookingId", initPayment)
+    .get("/invoice/:paymentId", checkAuth(...Object.values(Role)), getInvoiceDownloadUrl)

@@ -19,7 +19,6 @@ export const createUserZodSchema = z.object({
 // UPDATE USER ZOD SCHEMA
 export const updateUserZodSchema = z.object({
     name: nameField.optional(),
-    password: passwordField.optional(),
     phone: phoneField.optional(),
     role: z.enum(Object.values(Role) as [string]).optional(),
     isActive: z.enum(Object.values(IsActive) as [string]).optional(),

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>FlyTrip - OTP Verification</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f4f8fb;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e90ff, #00c6ff);
+            padding: 25px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .content {
+            padding: 30px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .content p {
+            font-size: 15px;
+            color: #555;
+        }
+
+        .otp-box {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 12px 20px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #1e90ff;
+            background-color: #f1f8ff;
+            border: 2px dashed #1e90ff;
+            border-radius: 8px;
+            letter-spacing: 4px;
+        }
+
+        .footer {
+            background-color: #f1f5f9;
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>FlyTrip</h1>
+            <p>Secure Verification</p>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <h2>Hello <%= name %>,</h2>
+            <p>Your One-Time Password (OTP) for verification is:</p>
+            <div class="otp-box">
+                <%= otp %>
+            </div>
+            <p>This code is valid for <strong>2 minutes</strong>. Please do not share it with anyone.</p>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            &copy; <%= new Date().getFullYear() %> FlyTrip. All rights reserved.
+        </div>
+    </div>
+</body>
+
+</html>;

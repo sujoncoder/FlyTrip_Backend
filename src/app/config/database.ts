@@ -9,7 +9,7 @@ import { SECRET } from "./env";
 const connectDB = async () => {
     try {
         await mongoose.connect(SECRET.DB_URI);
-        console.log("✅ Database connected");
+        console.log("🤖 Database connected");
     } catch (error) {
         console.error("❌ Failed to connect to the database:", error);
         process.exit(1);

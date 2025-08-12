@@ -19,11 +19,16 @@ export const createUserZodSchema = z.object({
 // UPDATE USER ZOD SCHEMA
 export const updateUserZodSchema = z.object({
     name: nameField.optional(),
-    password: passwordField.optional(),
     phone: phoneField.optional(),
     role: z.enum(Object.values(Role) as [string]).optional(),
     isActive: z.enum(Object.values(IsActive) as [string]).optional(),
     isDeleted: z.boolean({ error: "isDeleted must be true or false" }).optional(),
     isVerified: z.boolean({ error: "isVerified must be true or false" }).optional(),
     address: addressField.optional(),
+});
+
+
+// FORGOT EMAIL ZOD SCHEMA
+export const forgotMailZodSchema = z.object({
+    email: emailField
 });

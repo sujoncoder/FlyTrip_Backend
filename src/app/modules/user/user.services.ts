@@ -59,31 +59,32 @@ export const getMeService = async (userId: string) => {
 // UPDATE USER SERVICE
 export const updateUserService = async (userId: string, payload: Partial<IUser>, decodedToken: JwtPayload) => {
 
-    const isUserExist = await User.findById(userId);
+    if (decodedToken.role === Role.USER || decodedToken.role === Role.GUIDE) {
+        if (userId !== decodedToken.userId) {
+            throw new ApiError(401, "You are not authorized")
+        }
+    };
 
+    const ifUserExist = await User.findById(userId);
 
-    if (!isUserExist) {
+    if (!ifUserExist) {
         throw new ApiError(HTTP_STATUS.NOT_FOUND, "User Not Found")
+    };
+
+    if (decodedToken.role === Role.ADMIN && ifUserExist.role === Role.SUPER_ADMIN) {
+        throw new ApiError(401, "You are not authorized")
     };
 
     if (payload.role) {
         if (decodedToken.role === Role.USER || decodedToken.role === Role.GUIDE) {
             throw new ApiError(HTTP_STATUS.FORBIDDEN, "You are not authorized");
-        };
-
-        if (payload.role === Role.SUPER_ADMIN && decodedToken.role === Role.ADMIN) {
-            throw new ApiError(HTTP_STATUS.FORBIDDEN, "You are not authorized");
-        };
+        }
     };
 
     if (payload.isActive || payload.isDeleted || payload.isVerified) {
         if (decodedToken.role === Role.USER || decodedToken.role === Role.GUIDE) {
             throw new ApiError(HTTP_STATUS.FORBIDDEN, "You are not authorized");
-        };
-    };
-
-    if (payload.password) {
-        payload.password = await bcryptjs.hash(payload.password, SECRET.BCRYPT_SALT_ROUND)
+        }
     };
 
     const newUpdatedUser = await User.findByIdAndUpdate(userId, payload, { new: true, runValidators: true });

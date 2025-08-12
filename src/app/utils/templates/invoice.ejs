@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>FlyTrip - Payment Invoice</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f4f8fb;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 550px;
+            margin: 40px auto;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1.5px solid #d1d9e6;
+            /* subtle border added */
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e90ff, #00c6ff);
+            padding: 25px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        .content {
+            padding: 30px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .content p {
+            font-size: 15px;
+            color: #555;
+        }
+
+        .footer {
+            background-color: #f1f5f9;
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+            color: #777;
+        }
+
+        .highlight {
+            color: #1e90ff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>FlyTrip</h1>
+            <p>Your journey starts here ✈️</p>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <p><strong>✅ Your payment was successful!</strong> Your booking is now confirmed.</p>
+            <p>Thank you for choosing <strong>FlyTrip</strong>! 😊</p>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            &copy; <%= new Date().getFullYear() %> FlyTrip. All rights reserved.
+        </div>
+    </div>
+</body>
+
+</html>

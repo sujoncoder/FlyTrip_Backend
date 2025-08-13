@@ -2,14 +2,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextFunction, Request, Response } from "express";
-import { handleCastError } from "../helpers/handleCastError";
-import { handlerDuplicateError } from "../helpers/handleDuplicateError";
-import { handlerValidationError } from "../helpers/handlerValidationError";
-import { handlerZodError } from "../helpers/handlerZodError";
-import { TErrorSources } from "../interfaces/error.types";
+
 import { SECRET } from "../config/env";
 import { ApiError } from "../errors/ApiError";
+import { TErrorSources } from "../interfaces/error.types";
+import { handlerZodError } from "../helpers/handlerZodError";
+import { handleCastError } from "../helpers/handleCastError";
 import { deleteImageFromCLoudinary } from "../config/cloudinary.config";
+import { handlerDuplicateError } from "../helpers/handleDuplicateError";
+import { handlerValidationError } from "../helpers/handlerValidationError";
 
 
 
@@ -21,20 +22,20 @@ export const globalErrorHandler = async (err: any, req: Request, res: Response, 
 
     // CLOUDINARY SINGLE IMAGE DESTROY
     if (req.file) {
-        await deleteImageFromCLoudinary(req.file.path)
+        await deleteImageFromCLoudinary(req.file.path);
     };
 
     // CLOUDINARY MULTIPLE IMAGES DESTROY
     if (req.files && Array.isArray(req.files) && req.files.length) {
-        const imageUrls = (req.files as Express.Multer.File[]).map(file => file.path)
+        const imageUrls = (req.files as Express.Multer.File[]).map(file => file.path);
 
-        await Promise.all(imageUrls.map(url => deleteImageFromCLoudinary(url)))
+        await Promise.all(imageUrls.map(url => deleteImageFromCLoudinary(url)));
     };
 
 
-    let errorSources: TErrorSources[] = []
-    let statusCode = 500
-    let message = "Something Went Wrong!!"
+    let errorSources: TErrorSources[] = [];
+    let statusCode = 500;
+    let message = "Something Went Wrong!!";
 
 
     if (err.code === 11000) {

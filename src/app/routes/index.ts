@@ -1,12 +1,13 @@
 import { Router } from "express";
 
+import { otpRoutes } from "../modules/otp/otp.route";
+import { tourRoutes } from "../modules/tour/tour.route";
 import { userRoutes } from "../modules/user/user.route";
 import { authRoutes } from "../modules/auth/auth.route";
-import { divisionRoutes } from "../modules/division/division.route";
-import { tourRoutes } from "../modules/tour/tour.route";
-import { bookingRoutes } from "../modules/booking/booking.route";
+import { statsRoutes } from "../modules/stats/stats.route";
 import { paymentRoutes } from "../modules/payment/payment.route";
-import { otpRoutes } from "../modules/otp/otp.route";
+import { bookingRoutes } from "../modules/booking/booking.route";
+import { divisionRoutes } from "../modules/division/division.route";
 
 
 // DEFAULT ROUTE
@@ -40,6 +41,10 @@ const moduleRoutes = [
     {
         path: "/otp",
         route: otpRoutes
+    },
+    {
+        path: "/stats",
+        route: statsRoutes
     },
 ];
 

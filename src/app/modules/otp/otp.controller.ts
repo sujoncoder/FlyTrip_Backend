@@ -9,7 +9,7 @@ import { sendOTPService, verifyOTPService } from "./otp.service";
 // SEND OTP CONTROLLER
 export const sendOTP = catchAsync(async (req: Request, res: Response) => {
     const { email, name } = req.body;
-    await sendOTPService(email, name)
+    await sendOTPService(email, name);
     sendResponse(res, {
         statusCode: 200,
         success: true,

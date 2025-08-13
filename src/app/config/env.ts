@@ -32,6 +32,7 @@ interface IEnvType {
         SSL_SUCCESS_BACKEND_URL: string,
         SSL_FAIL_BACKEND_URL: string,
         SSL_CANCEL_BACKEND_URL: string,
+        SSL_IPN_URL: string,
     };
     CLOUDINARY: {
         CLOUDINARY_CLOUD_NAME: string;
@@ -92,6 +93,7 @@ const getValidatedEnv = (): IEnvType => {
         "REDIS_PORT",
         "REDIS_USERNAME",
         "REDIS_PASSWORD",
+        "SSL_IPN_URL",
     ];
 
     requiredKeys.forEach((key) => {
@@ -129,6 +131,7 @@ const getValidatedEnv = (): IEnvType => {
             SSL_SUCCESS_BACKEND_URL: process.env.SSL_SUCCESS_BACKEND_URL as string,
             SSL_FAIL_BACKEND_URL: process.env.SSL_FAIL_BACKEND_URL as string,
             SSL_CANCEL_BACKEND_URL: process.env.SSL_CANCEL_BACKEND_URL as string,
+            SSL_IPN_URL: process.env.SSL_IPN_URL as string,
         },
 
         CLOUDINARY: {

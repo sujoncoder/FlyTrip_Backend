@@ -1,3 +1,4 @@
+// SSL COMMERZ DATA TYPE
 export interface ISSLCommerz {
     amount: number,
     transactionId: string,

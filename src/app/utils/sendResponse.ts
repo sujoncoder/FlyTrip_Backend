@@ -1,11 +1,12 @@
 import { Response } from "express";
 
 
+// META
 interface TMeta {
-    page: number;
-    limit: number;
-    totalPage: number;
-    total: number
+    page?: number;
+    limit?: number;
+    totalPage?: number;
+    total: number;
 };
 
 interface TResponse<T> {
@@ -17,9 +18,8 @@ interface TResponse<T> {
 };
 
 
-// SEND RESPONSE UTILES FILE ALTERNATIVE TO ===> RES.SEND
+// SEND RESPONSE UTILES FILE
 export const sendResponse = <T>(res: Response, data: TResponse<T>) => {
-
     res.status(data.statusCode).json({
         success: data.success,
         statusCode: data.statusCode,

@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 import { TErrorSources, TGenericErrorResponse } from "../interfaces/error.types";
 
 
-
 // HANDLE VALIDATION ERROR
 export const handlerValidationError = (err: mongoose.Error.ValidationError): TGenericErrorResponse => {
 

@@ -10,8 +10,7 @@ import { IDivision } from "./division.interface";
 
 // CREATE DIVISION
 export const createDivision = catchAsync(async (req: Request, res: Response) => {
-
-    const payload = { ...req.body, thumbnail: req.file?.path }
+    const payload = { ...req.body, thumbnail: req.file?.path };
     const result = await createDivisionService(payload);
     sendResponse(res, {
         statusCode: 201,

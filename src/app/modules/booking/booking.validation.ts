@@ -7,9 +7,7 @@ import { BOOKING_STATUS } from "./booking.interface";
 export const createBookingZodSchema = z.object({
     tour: z.string(),
     guestCount: z.number().int().positive()
-
 });
-
 
 
 // UPDATE BOOKING STATUS SCHEMA

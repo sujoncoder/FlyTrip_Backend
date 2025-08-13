@@ -7,10 +7,10 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { SECRET } from "../../config/env";
 import { User } from "../user/user.model";
 import { ApiError } from "../../errors/ApiError";
+import { sendEmail } from "../../utils/sendEmail";
 import { HTTP_STATUS } from "../../constants/httpStatus";
 import { IAuthProvider, IsActive, IUser } from "../user/user.interface";
 import { createNewAccessTokenWithRefreshToken, createUserTokens } from "../../utils/userTokens";
-import { sendEmail } from "../../utils/sendEmail";
 
 
 
@@ -141,10 +141,6 @@ export const forgotPasswordService = async (email: string) => {
             resetUILink
         }
     });
-
-    /**
-     * http://localhost:5173/reset-password?id=687f310c724151eb2fcf0c41&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODdmMzEwYzcyNDE1MWViMmZjZjBjNDEiLCJlbWFpbCI6InNhbWluaXNyYXI2QGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzUzMTY2MTM3LCJleHAiOjE3NTMxNjY3Mzd9.LQgXBmyBpEPpAQyPjDNPL4m2xLF4XomfUPfoxeG0MKg
-     */
 };
 
 

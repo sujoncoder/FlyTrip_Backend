@@ -4,9 +4,9 @@ import { Server } from "http";
 import app from "./app";
 import { SECRET } from "./app/config/env";
 import connectDB from "./app/config/database";
+import { connectRedis } from "./app/config/redis.config";
 import { seedSuperAdmin } from "./app/utils/seedSuperAdmin";
 import gracefulShutdown, { setServer } from "./app/config/shutdown";
-import { connectRedis } from "./app/config/redis.config";
 
 
 let server: Server;
@@ -24,7 +24,7 @@ const startServer = async () => {
 
 // CALL SYNCHRONIZING ===> FIRST START SERVER THEN SEEDING SUPER ADMIN
 (async () => {
-    await connectRedis()
+    await connectRedis();
     await startServer();
     await seedSuperAdmin();
 })();

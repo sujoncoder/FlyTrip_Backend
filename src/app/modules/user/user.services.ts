@@ -3,12 +3,12 @@ import { JwtPayload } from "jsonwebtoken";
 
 import { SECRET } from "../../config/env";
 import { ApiError } from "../../errors/ApiError";
+import { QueryBuilder } from "../../utils/QueryBuilder";
 import { HTTP_STATUS } from "../../constants/httpStatus";
 
 import { User } from "./user.model";
-import { IAuthProvider, IUser, Role } from "./user.interface";
-import { QueryBuilder } from "../../utils/QueryBuilder";
 import { userSearchableFields } from "./user.constant";
+import { IAuthProvider, IUser, Role } from "./user.interface";
 
 
 
@@ -16,7 +16,7 @@ import { userSearchableFields } from "./user.constant";
 export const createUserService = async (payload: Partial<IUser>) => {
     const { email, password, ...rest } = payload;
 
-    const isUserExist = await User.findOne({ email })
+    const isUserExist = await User.findOne({ email });
 
     if (isUserExist) {
         throw new ApiError(HTTP_STATUS.BAD_REQUEST, "User Already Exist")
@@ -43,7 +43,7 @@ export const getSingleUserService = async (id: string) => {
     const user = await User.findById(id).select("-password");
     return {
         data: user
-    }
+    };
 };
 
 
@@ -52,7 +52,7 @@ export const getMeService = async (userId: string) => {
     const user = await User.findById(userId).select("-password");
     return {
         data: user
-    }
+    };
 };
 
 
@@ -62,7 +62,7 @@ export const updateUserService = async (userId: string, payload: Partial<IUser>,
     if (decodedToken.role === Role.USER || decodedToken.role === Role.GUIDE) {
         if (userId !== decodedToken.userId) {
             throw new ApiError(401, "You are not authorized")
-        }
+        };
     };
 
     const ifUserExist = await User.findById(userId);
@@ -78,13 +78,13 @@ export const updateUserService = async (userId: string, payload: Partial<IUser>,
     if (payload.role) {
         if (decodedToken.role === Role.USER || decodedToken.role === Role.GUIDE) {
             throw new ApiError(HTTP_STATUS.FORBIDDEN, "You are not authorized");
-        }
+        };
     };
 
     if (payload.isActive || payload.isDeleted || payload.isVerified) {
         if (decodedToken.role === Role.USER || decodedToken.role === Role.GUIDE) {
             throw new ApiError(HTTP_STATUS.FORBIDDEN, "You are not authorized");
-        }
+        };
     };
 
     const newUpdatedUser = await User.findByIdAndUpdate(userId, payload, { new: true, runValidators: true });
@@ -107,10 +107,10 @@ export const getAllUserService = async (query: Record<string, string>) => {
     const [data, meta] = await Promise.all([
         usersData.build(),
         queryBuilder.getMeta()
-    ])
+    ]);
 
     return {
         data,
         meta
-    }
+    };
 };

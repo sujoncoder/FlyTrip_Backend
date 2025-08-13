@@ -5,13 +5,12 @@ import { ApiError } from "../../errors/ApiError";
 import { Payment } from "../payment/payment.model";
 import { HTTP_STATUS } from "../../constants/httpStatus";
 import { PAYMENT_STATUS } from "../payment/payment.interface";
+import { getTransactionId } from "../../utils/getTransactionId";
 import { ISSLCommerz } from "../sslCommerz/sslCommerz.interface";
 import { sslPaymentInit } from "../sslCommerz/sslCommerz.service";
 
 import { Booking } from "./booking.model";
 import { BOOKING_STATUS, IBooking } from "./booking.interface";
-import { getTransactionId } from "../../utils/getTransactionId";
-
 
 
 

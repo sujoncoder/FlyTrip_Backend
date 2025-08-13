@@ -1,11 +1,11 @@
 import { Router } from "express";
 
-import { validateRequest } from "../../middlewares/validateRequest";
 import { checkAuth } from "../../middlewares/checkAuth";
+import { validateRequest } from "../../middlewares/validateRequest";
 
 import { Role } from "./user.interface";
-import { createUser, getAllUsers, getMe, getSingleUser, updateUser } from "./user.controller";
 import { createUserZodSchema, updateUserZodSchema } from "./user.validation";
+import { createUser, getAllUsers, getMe, getSingleUser, updateUser } from "./user.controller";
 
 
 // USER ROUTES

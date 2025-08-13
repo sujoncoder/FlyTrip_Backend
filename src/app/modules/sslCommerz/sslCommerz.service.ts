@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-console */
 import axios from "axios"
 
 import { SECRET } from "../../config/env";
 import { ApiError } from "../../errors/ApiError";
+import { Payment } from "../payment/payment.model";
 import { HTTP_STATUS } from "../../constants/httpStatus";
 
 import { ISSLCommerz } from "./sslCommerz.interface"
@@ -10,7 +13,6 @@ import { ISSLCommerz } from "./sslCommerz.interface"
 
 // SSL PAYMENT INIT
 export const sslPaymentInit = async (payload: ISSLCommerz) => {
-
     try {
         const data = {
             store_id: SECRET.SSL.STORE_ID,
@@ -21,7 +23,7 @@ export const sslPaymentInit = async (payload: ISSLCommerz) => {
             success_url: `${SECRET.SSL.SSL_SUCCESS_BACKEND_URL}?transactionId=${payload.transactionId}&amount=${payload.amount}&status=success`,
             fail_url: `${SECRET.SSL.SSL_FAIL_BACKEND_URL}?transactionId=${payload.transactionId}&amount=${payload.amount}&status=fail`,
             cancel_url: `${SECRET.SSL.SSL_CANCEL_BACKEND_URL}?transactionId=${payload.transactionId}&amount=${payload.amount}&status=cancel`,
-            // ipn_url: "http://localhost:3030/ipn",
+            ipn_url: SECRET.SSL.SSL_IPN_URL,
             shipping_method: "N/A",
             product_name: "Tour",
             product_category: "Service",
@@ -43,18 +45,38 @@ export const sslPaymentInit = async (payload: ISSLCommerz) => {
             ship_state: "N/A",
             ship_postcode: 1000,
             ship_country: "N/A",
-        }
+        };
 
         const response = await axios({
             method: "POST",
             url: SECRET.SSL.SSL_PAYMENT_API,
             data: data,
             headers: { "Content-Type": "application/x-www-form-urlencoded" }
-        })
+        });
 
         return response.data;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-        throw new ApiError(HTTP_STATUS.BAD_REQUEST, error.message)
+        throw new ApiError(HTTP_STATUS.BAD_REQUEST, error.message);
+    }
+};
+
+
+// VALIDATED PAYMENT
+export const validatePayment = async (payload: any) => {
+    try {
+        const response = await axios({
+            method: "GET",
+            url: `${SECRET.SSL.SSL_VALIDATION_API}?val_id=${payload.val_id}&store_id=${SECRET.SSL.STORE_ID}&store_passwd=${SECRET.SSL.STORE_PASS}`
+        });
+
+        console.log("sslcomeerz validate api response", response.data);
+
+        await Payment.updateOne(
+            { transactionId: payload.tran_id },
+            { paymentGatewayData: response.data },
+            { runValidators: true })
+    } catch (error: any) {
+        console.log(error);
+        throw new ApiError(HTTP_STATUS.BAD_REQUEST, `Payment Validation Error, ${error.message}`);
     }
 };

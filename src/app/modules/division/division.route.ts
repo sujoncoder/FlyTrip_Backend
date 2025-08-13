@@ -14,7 +14,6 @@ import { multerUpload } from "../../config/multer.config";
 export const divisionRoutes = Router()
 
     .post("/create", checkAuth(Role.ADMIN, Role.SUPER_ADMIN), multerUpload.single("file"), validateRequest(createDivisionSchema), createDivision)
-
     .get("/", getAllDivisions)
     .get("/:slug", getSingleDivision)
     .patch("/:id", checkAuth(Role.ADMIN, Role.SUPER_ADMIN),

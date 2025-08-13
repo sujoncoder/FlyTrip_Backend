@@ -7,10 +7,10 @@ import expressSession from "express-session";
 import "./app/config/passport"
 
 import { router } from "./app/routes";
+import { SECRET } from "./app/config/env";
 import notFound from "./app/middlewares/notFound";
 import { HTTP_STATUS } from "./app/constants/httpStatus";
 import { globalErrorHandler } from "./app/middlewares/globalErrorHandler";
-import { SECRET } from "./app/config/env";
 
 
 
@@ -30,7 +30,7 @@ app.use(cookieParser());
 app.use(cors({
     origin: SECRET.FRONTEND_URL,
     credentials: true
-}))
+}));
 
 
 // APPLICATION ROUTE MIDDLEWARE

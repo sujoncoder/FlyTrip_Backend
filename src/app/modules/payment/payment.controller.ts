@@ -34,12 +34,12 @@ export const successPayment = catchAsync(async (req: Request, res: Response) => 
 
 // FAIL PAYMENT CONTROLLER
 export const failPayment = catchAsync(async (req: Request, res: Response) => {
-    const query = req.query
-    const result = await failPaymentService(query as Record<string, string>)
+    const query = req.query;
+    const result = await failPaymentService(query as Record<string, string>);
 
     if (!result.success) {
         res.redirect(`${SECRET.SSL.SSL_FAIL_FRONTEND_URL}?transactionId=${query.transactionId}&message=${result.message}&amount=${query.amount}&status=${query.status}`)
-    }
+    };
 });
 
 
@@ -72,7 +72,6 @@ export const getInvoiceDownloadUrl = catchAsync(
 // VALIDATE PAYMENT CONTROLLER
 export const validatePayment = catchAsync(
     async (req: Request, res: Response) => {
-        // await validatePaymentService(req.body)
         sendResponse(res, {
             statusCode: 200,
             success: true,

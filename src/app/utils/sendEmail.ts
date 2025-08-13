@@ -21,6 +21,7 @@ const transporter = nodemailer.createTransport({
     host: SECRET.EMAIL_SENDER.SMTP_HOST
 });
 
+// TYPE EMAIL OPTION
 interface SendEmailOptions {
     to: string,
     subject: string;
@@ -32,6 +33,7 @@ interface SendEmailOptions {
         contentType: string
     }[];
 };
+
 
 export const sendEmail = async ({
     to,

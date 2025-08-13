@@ -13,14 +13,13 @@ const storage = new CloudinaryStorage({
             const fileName = file.originalname
                 .toLowerCase()
                 .replace(/\s+/g, "-") // empty space remove replace with dash
-                .replace(/\./g, "-")
-                // eslint-disable-next-line no-useless-escape
+                .replace(/\./g, "-")  // eslint-disable-next-line no-useless-escape
                 .replace(/[^a-z0-9\-\.]/g, "") // non alpha numeric - !@#$
 
             const extension = file.originalname.split(".").pop()
-            const uniqueFileName = Math.random().toString(36).substring(2) + "-" + Date.now() + "-" + fileName + "." + extension
+            const uniqueFileName = Math.random().toString(36).substring(2) + "-" + Date.now() + "-" + fileName + "." + extension;
 
-            return uniqueFileName
+            return uniqueFileName;
         }
     }
 });

@@ -15,7 +15,6 @@ const divisionSchema = new Schema<IDivision>({
 });
 
 
-
 // PRE-HOOK
 divisionSchema.pre("save", async function (next) {
     if (this.isModified("name")) {
@@ -29,9 +28,8 @@ divisionSchema.pre("save", async function (next) {
 
         this.slug = slug;
     }
-    next()
+    next();
 });
-
 
 
 divisionSchema.pre("findOneAndUpdate", async function (next) {
@@ -46,7 +44,7 @@ divisionSchema.pre("findOneAndUpdate", async function (next) {
             slug = `${slug}-${counter++}` // dhaka-division-2
         }
 
-        division.slug = slug
+        division.slug = slug;
     };
 
     this.setUpdate(division);

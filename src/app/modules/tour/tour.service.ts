@@ -1,9 +1,10 @@
 import { QueryBuilder } from "../../utils/QueryBuilder";
 
+import { deleteImageFromCLoudinary } from "../../config/cloudinary.config";
+
 import { Tour, TourType } from "./tour.model";
 import { ITour, ITourType } from "./tour.interface";
 import { tourSearchableFields } from "./tour.constant";
-import { deleteImageFromCLoudinary } from "../../config/cloudinary.config";
 
 
 
@@ -21,17 +22,13 @@ export const createTourService = async (payload: ITour) => {
 
 // GET ALL TOURS SERVICE
 export const getAllTourService = async (query: Record<string, string>) => {
-
     const queryBuilder = new QueryBuilder(Tour.find(), query);
-
     const tours = await queryBuilder
         .search(tourSearchableFields)
         .filter()
         .sort()
         .fields()
         .paginate()
-
-    // const meta = await queryBuilder.getMeta()
 
     const [data, meta] = await Promise.all([
         tours.build(),

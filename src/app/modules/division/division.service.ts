@@ -46,7 +46,7 @@ export const updateDivisionService = async (id: string, payload: Partial<IDivisi
     const existingDivision = await Division.findById(id);
     if (!existingDivision) {
         throw new Error("Division not found.");
-    }
+    };
 
     const duplicateDivision = await Division.findOne({
         name: payload.name,

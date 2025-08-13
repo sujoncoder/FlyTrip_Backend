@@ -34,13 +34,13 @@ export const getAllUsers = catchAsync(async (req: Request, res: Response, next: 
         message: "All Users Retrieved Successfully",
         data: result.data,
         meta: result.meta
-    })
+    });
 })
 
 
 // GET MY PROFILE CONTROLLER
 export const getMe = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const decodedToken = req.user as JwtPayload
+    const decodedToken = req.user as JwtPayload;
     const result = await getMeService(decodedToken.userId);
 
     sendResponse(res, {
@@ -48,8 +48,8 @@ export const getMe = catchAsync(async (req: Request, res: Response, next: NextFu
         statusCode: HTTP_STATUS.CREATED,
         message: "Your profile Retrieved Successfully",
         data: result.data
-    })
-})
+    });
+});
 
 
 // GET SINGLE USER CONTROLLER
@@ -61,8 +61,8 @@ export const getSingleUser = catchAsync(async (req: Request, res: Response, next
         statusCode: HTTP_STATUS.CREATED,
         message: "User Retrieved Successfully",
         data: result.data
-    })
-})
+    });
+});
 
 
 // UPDATE USER CONTROLLER

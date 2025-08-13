@@ -11,7 +11,7 @@ import { createBookingService, getAllBookingService, getSingleBookingService, ge
 
 // CREATE BOOKING CONTROLLER
 export const createBooking = catchAsync(async (req: Request, res: Response) => {
-    const decodedToken = req.user as JwtPayload
+    const decodedToken = req.user as JwtPayload;
 
     const booking = await createBookingService(req.body, decodedToken.userId);
 
@@ -63,7 +63,6 @@ export const getSingleBooking = catchAsync(async (req: Request, res: Response) =
 
 // UPDATE BOOKING STATUS CONTROLLER
 export const updateBookingStatus = catchAsync(async (req: Request, res: Response) => {
-
     const updated = await updateBookingStatusService();
     sendResponse(res, {
         statusCode: 201,

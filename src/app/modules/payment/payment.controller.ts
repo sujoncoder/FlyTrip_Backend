@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { SECRET } from "../../config/env";
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
+import { sslService } from "../sslCommerz/sslCommerz.service";
 
 import { cancelPaymentService, failPaymentService, getInvoiceDownloadUrlService, initPaymentService, successPaymentService } from "./payment.service";
 
@@ -70,13 +71,13 @@ export const getInvoiceDownloadUrl = catchAsync(
 
 
 // VALIDATE PAYMENT CONTROLLER
-export const validatePayment = catchAsync(
-    async (req: Request, res: Response) => {
-        sendResponse(res, {
-            statusCode: 200,
-            success: true,
-            message: "Payment Validated Successfully",
-            data: null,
-        });
-    }
+export const validatePayment = catchAsync(async (req: Request, res: Response) => {
+    await sslService.validatePayment(req.body);
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "Payment Validated Successfully",
+        data: null,
+    });
+}
 );

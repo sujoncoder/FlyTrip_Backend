@@ -12,7 +12,7 @@ import { ISSLCommerz } from "./sslCommerz.interface"
 
 
 // SSL PAYMENT INIT
-export const sslPaymentInit = async (payload: ISSLCommerz) => {
+const sslPaymentInit = async (payload: ISSLCommerz) => {
     try {
         const data = {
             store_id: SECRET.SSL.STORE_ID,
@@ -62,7 +62,7 @@ export const sslPaymentInit = async (payload: ISSLCommerz) => {
 
 
 // VALIDATED PAYMENT
-export const validatePayment = async (payload: any) => {
+const validatePayment = async (payload: any) => {
     try {
         const response = await axios({
             method: "GET",
@@ -79,4 +79,9 @@ export const validatePayment = async (payload: any) => {
         console.log(error);
         throw new ApiError(HTTP_STATUS.BAD_REQUEST, `Payment Validation Error, ${error.message}`);
     }
+};
+
+export const sslService = {
+    sslPaymentInit,
+    validatePayment
 };

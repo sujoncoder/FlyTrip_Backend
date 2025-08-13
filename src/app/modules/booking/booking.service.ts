@@ -7,10 +7,10 @@ import { HTTP_STATUS } from "../../constants/httpStatus";
 import { PAYMENT_STATUS } from "../payment/payment.interface";
 import { getTransactionId } from "../../utils/getTransactionId";
 import { ISSLCommerz } from "../sslCommerz/sslCommerz.interface";
-import { sslPaymentInit } from "../sslCommerz/sslCommerz.service";
 
 import { Booking } from "./booking.model";
 import { BOOKING_STATUS, IBooking } from "./booking.interface";
+import { sslService } from "../sslCommerz/sslCommerz.service";
 
 
 
@@ -69,7 +69,7 @@ export const createBookingService = async (payload: Partial<IBooking>, userId: s
             transactionId: transactionId
         };
 
-        const sslPayment = await sslPaymentInit(sslPayload);
+        const sslPayment = await sslService.sslPaymentInit(sslPayload);
 
         await session.commitTransaction();
         session.endSession();

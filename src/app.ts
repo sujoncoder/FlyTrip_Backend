@@ -4,7 +4,7 @@ import passport from "passport";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
 
-import "./app/config/passport"
+import "./app/config/passport";
 
 import { router } from "./app/routes";
 import { SECRET } from "./app/config/env";
@@ -25,6 +25,7 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
+app.set("trust proxy", 1);
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({

@@ -9,7 +9,7 @@ import { HTTP_STATUS } from "../../constants/httpStatus";
 import { BOOKING_STATUS } from "../booking/booking.interface";
 import { generatePdf, IInvoiceData } from "../../utils/invoice";
 import { ISSLCommerz } from "../sslCommerz/sslCommerz.interface";
-import { sslPaymentInit } from "../sslCommerz/sslCommerz.service";
+import { sslService } from "../sslCommerz/sslCommerz.service";
 import { uploadBufferToCloudinary } from "../../config/cloudinary.config";
 
 import { Payment } from "./payment.model";
@@ -42,7 +42,7 @@ export const initPaymentService = async (bookingId: string) => {
         transactionId: payment.transactionId
     }
 
-    const sslPayment = await sslPaymentInit(sslPayload)
+    const sslPayment = await sslService.sslPaymentInit(sslPayload)
 
     return {
         paymentUrl: sslPayment.GatewayPageURL

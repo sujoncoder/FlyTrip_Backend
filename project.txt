@@ -31,11 +31,14 @@
 
 ✅ API-ENDPOINT ✅
 
-⛑️ AUTH ROUTE
+⛑️ AUTH ROUTE 
     # /api/v1/user/register         --> Create new user.
     # /api/v1/user/login            --> Login user.
     # /api/v1/user/refresh-token    --> Create new access token.
-    # /api/v1/user/refresh-token    --> Logout user.
+    # /api/v1/user/logout           --> Logout user.
+    # /api/v1/user/change-password  --> Changne user password.
+    # /api/v1/user/set-password     --> Goggle auth user can set-password.
+    # /api/v1/user/forgot-password  --> User forgot password.
     # /api/v1/user/reset-password   --> Reset password.
 
 
@@ -53,6 +56,14 @@
     # /api/v1/user/refresh-token    --> Create new access token.
     # /api/v1/user/refresh-token    --> Logout user.
     # /api/v1/user/reset-password   --> Reset password.
+
+
+🤿 DIVISION ROUTE
+    POST  # /api/v1/division/create             --> Create new division (ADMIN,SUPER_ADMIN).
+    GET   # /api/v1/division/                   --> Get all booking (Admin, SuperAdmin).
+    GET   # /api/v1/booking/my-bookings         --> Get my booking (ALL)
+    GET   # /api/v1/booking/:bookingId          --> Get single bookings (ALL).
+    PATCH # /api/v1/booking/:bookingId/status   --> Update booking status.
 
 
 🈯 BOOKING ROUTE

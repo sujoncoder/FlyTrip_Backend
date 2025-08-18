@@ -43,6 +43,9 @@ export const createBookingService = async (payload: Partial<IBooking>, userId: s
             ...payload
         }], { session });
 
+        const bookingIds = [...user.bookings as any, booking[0]._id];
+        await User.findByIdAndUpdate(user._id, { bookings: bookingIds }, { runValidators: true, session });
+
         const payment = await Payment.create([{
             booking: booking[0]._id,
             status: PAYMENT_STATUS.UNPAID,
